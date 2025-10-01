@@ -1,4 +1,4 @@
 class Seccion < ApplicationRecord
   belongs_to :resort
-  has_many :opciones
+  has_many :opcions, dependent: :destroy
 end

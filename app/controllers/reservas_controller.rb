@@ -2,7 +2,7 @@ class ReservasController < ApplicationController
   before_action :set_reserva, only: [:show, :edit, :update, :destroy]
 
   def index
-    @reservas = Reserva.all
+    @reservas = Reserva.all.includes(:opcion)
   end
 
   def show
@@ -10,33 +10,37 @@ class ReservasController < ApplicationController
 
   def new
     @reserva = Reserva.new
+    @opciones = Opcion.all
+  end
+
+  def edit
+    @opciones = Opcion.all
   end
 
   def create
     @reserva = Reserva.new(reserva_params)
-    @reserva.estado = "PENDIENTE"  # manejo de solicitudes: siempre parte en pendiente
+    @reserva.estado = "pendiente"
 
     if @reserva.save
-      redirect_to reservas_path, notice: "Reserva creada con éxito"
+      redirect_to reservas_path, notice: "Reserva creada exitosamente."
     else
+      @opciones = Opcion.all
       render :new
     end
   end
 
-  def edit
-  end
-
   def update
     if @reserva.update(reserva_params)
-      redirect_to reservas_path, notice: "Reserva actualizada"
+      redirect_to reservas_path, notice: "Reserva actualizada exitosamente."
     else
+      @opciones = Opcion.all
       render :edit
     end
   end
 
   def destroy
-    @reserva.update(estado: "CANCELADA")  # en vez de borrar, la cancelamos
-    redirect_to reservas_path, notice: "Reserva cancelada"
+    @reserva.destroy
+    redirect_to reservas_path, notice: "Reserva cancelada exitosamente."
   end
 
   private
@@ -46,6 +50,6 @@ class ReservasController < ApplicationController
   end
 
   def reserva_params
-    params.require(:reserva).permit(:fecha, :estado, :usuario_id, :opcion_id)
+    params.require(:reserva).permit(:fecha, :usuario_id, :opcion_id)
   end
 end

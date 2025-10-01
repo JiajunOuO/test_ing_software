@@ -1,24 +1,10 @@
-<h2>Nueva Reserva</h2>
-
-<%= form_with(model: @reserva, local: true) do |form| %>
-  <div>
-    <%= form.label :fecha, "Fecha de la reserva" %><br>
-    <%= form.date_field :fecha %>
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h2>Crear Nueva Reserva</h2>
+    </div>
+    <div class="card-body">
+      <%= render 'form', reserva: @reserva %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :usuario_id, "Usuario ID" %><br>
-    <%= form.number_field :usuario_id %>
-  </div>
-
-  <div>
-    <%= form.label :opcion_id, "Opción" %><br>
-    <%= form.number_field :opcion_id %>
-  </div>
-
-  <div>
-    <%= form.submit "Crear Reserva" %>
-  </div>
-<% end %>
-
-<%= link_to "Volver", reservas_path %>
+</div>

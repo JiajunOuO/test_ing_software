@@ -1,0 +1,35 @@
+<%= form_with(model: reserva) do |form| %>
+  <% if reserva.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(reserva.errors.count, "error") %> prohibieron guardar esta reserva:</h4>
+      <ul>
+        <% reserva.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :fecha, class: "form-label" %>
+    <%= form.date_field :fecha, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :usuario_id, "ID de Usuario", class: "form-label" %>
+    <%= form.number_field :usuario_id, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :opcion_id, "Opción", class: "form-label" %>
+    <%= form.collection_select :opcion_id, @opciones, :id, :nombre_completo, 
+          { include_blank: "Selecciona una opción" }, 
+          { class: "form-select" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit reserva.persisted? ? "💾 Actualizar Reserva" : "✅ Crear Reserva", 
+          class: "btn btn-primary" %>
+    <%= link_to "❌ Cancelar", reservas_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

@@ -1,3 +1,4 @@
 class Resort < ApplicationRecord
-    has_many :secciones
+  has_many :seccions, dependent: :destroy
+  has_many :opcions, through: :seccions
 end
