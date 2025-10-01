@@ -1,0 +1,10 @@
+<h2>Detalle de Reserva</h2>
+
+<p><b>ID:</b> <%= @reserva.id %></p>
+<p><b>Fecha:</b> <%= @reserva.fecha %></p>
+<p><b>Estado:</b> <%= @reserva.estado %></p>
+<p><b>Usuario:</b> <%= @reserva.usuario_id %></p>
+<p><b>Opción:</b> <%= @reserva.opcion_id %></p>
+
+<%= link_to "Editar", edit_reserva_path(@reserva) %> |
+<%= link_to "Volver", reservas_path %>
